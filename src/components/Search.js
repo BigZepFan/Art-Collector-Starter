@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import ReactDOM from "react-dom";
 
 /**
  * Don't touch these imports!
@@ -9,28 +10,21 @@ import {
   fetchQueryResults,
 } from "../api";
 
-const Search = (props) => {
-  // Make sure to destructure setIsLoading and setSearchResults from the props
+function Search() {
+  const [centuryList, setCenturyList] = useState([]);
+  const [classificationList, setClassificationList] = useState([]);
+  const [queryString, setQueryString] = useState([]);
 
-  /**
-   * We are at the Search component, a child of app. This has a form, so we need to use useState for
-   * our controlled inputs:
-   *
-   * centuryList, setCenturyList (default should be an empty array, [])
-   * classificationList, setClassificationList (default should be an empty array, [])
-   * queryString, setQueryString (default should be an empty string, '')
-   * century, setCentury (default should be the string 'any')
-   * classification, setClassification (default should be the string 'any')
-   */
-
-  /**
-   * Inside of useEffect, use Promise.all([]) with fetchAllCenturies and fetchAllClassifications
-   *
-   * In the .then() callback pass the returned lists to setCenturyList and setClassificationList
-   *
-   * Make sure to console.error on caught errors from the API methods.
-   */
-  useEffect(() => {}, []);
+  useEffect(() => {
+    Promise.all([fetchAllCenturies(), fetchAllClassifications()]).then(
+      ([centuriesFromApi, classificationsFromApi]) => {
+        console.log("centuries", centuriesFromApi);
+        console.log("classifications", classificationsFromApi);
+        setCenturyList(centuriesFromApi);
+        setClassificationList(classificationsFromApi);
+      }
+    );
+  }, []);
 
   /**
    * This is a form element, so we need to bind an onSubmit handler to it which:
@@ -48,12 +42,19 @@ const Search = (props) => {
    *
    * finally: call setIsLoading, set it to false
    */
+
   return (
     <form
       id="search"
       onSubmit={async (event) => {
-        // write code here
-      }}
+              event.preventDefault(
+        setIsLoading = true)
+        try { 
+          fetchQueryResults({ century, classification, queryString })
+         } catch {setSearchResults
+
+         } console.error(errorObj) // write code here
+         } finally { setIsLoading();
     >
       <fieldset>
         <label htmlFor="keywords">Query</label>
@@ -71,7 +72,7 @@ const Search = (props) => {
         <label htmlFor="select-classification">
           Classification{" "}
           <span className="classification-count">
-            ({classificationList.length})
+            {classificationList.length}
           </span>
         </label>
         <select
@@ -105,6 +106,6 @@ const Search = (props) => {
       <button>SEARCH</button>
     </form>
   );
-};
+}
 
 export default Search;
