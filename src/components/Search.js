@@ -62,10 +62,11 @@ function Search() {
           id="keywords"
           type="text"
           placeholder="enter keywords..."
-          // TODO UN-comment and fill in the correct value:
+          // TODO UN-comment and fill in the correct value: What value?
           // value={/* this should be the query string */}
           // TODO UN-comment and fill in the correct onChange function
           // onChange={/* this should update the value of the query string */}
+          // THIS IS AN UDPATE FOR PW 8/11/22
         />
       </fieldset>
       <fieldset>
